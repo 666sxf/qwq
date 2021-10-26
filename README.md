@@ -1,1 +1,69 @@
-# 666
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>c0</title>
+</head>
+
+<body>
+<canvas id="myCanvas" width="600" height="300">
+	你的浏览器不支持HTML5
+</canvas><br>
+<button style="width:80px;background-color:yellow;" 		   onClick='linecolor="yellow";linw=4;'>黄色</button>
+<button style="width:80px;background-color:red;" 			   onClick='linecolor="red";   linw=4;'>红色</button>
+<button style="width:80px;background-color:blue;" 			   onClick='linecolor="blue";  linw=4;'>蓝色</button>
+<button style="width:80px;background-color:green;" 			   onClick='linecolor="green"; linw=4;'>绿色</button>
+<button style="width:80px;background-color:white;" 			   onClick='linecolor="white"; linw=4;'>白色</button>
+<button style="width:80px;background-color:black;color:white;" onClick='linecolor="black"; linw=50;'>橡皮擦</button><br>
+
+
+<script type="text/javascript">
+	var canvas=document.getElementById("myCanvas");
+	var ctx=canvas.getContext("2d");
+	
+	ctx.fillStyle="black";
+	ctx.fillRect(0,0,600,300);
+	
+	
+	var on_off=false;
+	var oldx= -10;
+	var oldy= -10;
+	
+	
+	var linecolor="white";
+	
+	var linw=4;
+	
+	canvas.addEventListener("mousemove",draw,true);
+	canvas.addEventListener("mousedown",down,false);
+	canvas.addEventListener("mouseup",up,false);
+
+	function down(event){
+		on_off=true;
+		oldx=event.pageX-10;
+		oldy=event.pageY-10;
+	}
+	function up(){
+		on_off=false;
+	}
+	function draw(event){
+		if(on_off==true){
+			var newx=event.pageX-10;
+			var newy=event.pageY-10;
+			ctx.beginPath();
+			ctx.moveTo(oldx,oldy);
+			ctx.lineTo(newx,newy);
+			ctx.strokeStyle=linecolor;
+			ctx.lineWidth=linw;
+			ctx.lineCap="round";
+			ctx.stroke();
+			
+			oldx=newx;
+			oldy=newy;
+		};
+	};
+	
+</script>
+
+</body>
+</html>
